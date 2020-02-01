@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Disasters
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Planet
+    uniqueID: 4012108041
+    locked: 0
+  - name: Disasters
+    uniqueID: 2320100169
     locked: 0

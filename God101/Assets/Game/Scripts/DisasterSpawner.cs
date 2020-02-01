@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,26 +11,58 @@ namespace God
         [Tooltip("Maximum time for disaster in seconds.")]
         [SerializeField] private float maxDuration;
 
+        [SerializeField] private GameObject[] disasters;
+        [Tooltip("Radius of a circle to spawn inside a catastrophe.")]
+        [SerializeField] private float radiusForSpawns;
+
+        Task disasterTask;
+        CancellationTokenSource cts;
+
+        public int DisasterCount { private set; get; } = 0;
+
         private void Awake()
         {
-            Task task = ScheduleDisasterAsync();
+            cts = new CancellationTokenSource();
+            disasterTask = ScheduleDisasterAsync();
+
         }
 
         private async Task ScheduleDisasterAsync()
         {
-            await Task.Delay((int)(UnityEngine.Random.Range(minDuration, maxDuration) * 1000))
+            await Task.Delay((int)(UnityEngine.Random.Range(minDuration, maxDuration) * 1000), cts.Token);
 ;           SpawnDisaster();
         }
 
-        private void SpawnDisaster()
+        public void SpawnDisaster()
         {
-            Debug.Log("Disaster!!");
+            int disasterId = UnityEngine.Random.Range(0, disasters.Length);
 
-            Task task = ScheduleDisasterAsync();
+            //var position = RandomCircle(transform.position, radiusForSpawns);
+            Instantiate(disasters[disasterId], transform.position, Quaternion.identity);
+
+            disasterTask = ScheduleDisasterAsync();
+
+            DisasterCount++;
+        }
+
+        Vector3 RandomCircle(Vector3 center, float radius)
+        {
+            float ang = UnityEngine.Random.value * 360;
+            Vector3 pos;
+            pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad) * UnityEngine.Random.Range(0, 1f);
+            pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad) * UnityEngine.Random.Range(0, 1f);
+            pos.z = center.z;
+            return pos;
+        }
+
+        private void OnDestroy()
+        {
+            cts.Cancel();
+            disasterTask.Dispose();
         }
     }
 
-    public enum Disaster
+    public enum DisasterType
     {
         Fire,
         Tornado,
