@@ -27,7 +27,7 @@ namespace God
 
         }
 
-        private async Task ScheduleDisasterAsync()
+        public async Task ScheduleDisasterAsync()
         {
             await Task.Delay((int)(UnityEngine.Random.Range(minDuration, maxDuration) * 1000), cts.Token);
 ;           SpawnDisaster();
@@ -35,12 +35,12 @@ namespace God
 
         public void SpawnDisaster()
         {
+            if (Points.Instance.IsFinished) return;
+
             int disasterId = UnityEngine.Random.Range(0, disasters.Length);
 
             //var position = RandomCircle(transform.position, radiusForSpawns);
             Instantiate(disasters[disasterId], transform.position, Quaternion.identity);
-
-            disasterTask = ScheduleDisasterAsync();
 
             DisasterCount++;
         }
@@ -66,6 +66,7 @@ namespace God
     {
         Fire,
         Tornado,
-        Earthquake
+        Earthquake,
+        None = 99
     }
 }

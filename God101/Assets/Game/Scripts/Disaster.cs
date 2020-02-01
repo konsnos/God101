@@ -9,5 +9,21 @@ namespace God
         {
             get { return disasterType; }
         }
+
+        private void Awake()
+        {
+            if (disasterType == DisasterType.Earthquake)
+            {
+                FindObjectOfType<Planet>().MoveIt();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (disasterType == DisasterType.Earthquake)
+            {
+                FindObjectOfType<Planet>().StopIt();
+            }
+        }
     }
 }

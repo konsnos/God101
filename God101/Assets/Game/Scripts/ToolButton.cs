@@ -41,6 +41,8 @@ namespace God
             {
                 Destroy(disaster.gameObject);
                 Points.Instance.AddPoints(pointsAwarded);
+                Points.Instance.CheckIfFinished();
+                System.Threading.Tasks.Task task = FindObjectOfType<DisasterSpawner>().ScheduleDisasterAsync();
             }
             else
             {
