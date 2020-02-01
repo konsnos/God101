@@ -12,8 +12,6 @@ namespace God
         [SerializeField] private float maxDuration;
 
         [SerializeField] private GameObject[] disasters;
-        [Tooltip("Radius of a circle to spawn inside a catastrophe.")]
-        [SerializeField] private float radiusForSpawns;
 
         Task disasterTask;
         CancellationTokenSource cts;
@@ -37,10 +35,10 @@ namespace God
         {
             if (Points.Instance.IsFinished) return;
 
-            int disasterId = UnityEngine.Random.Range(0, disasters.Length);
+            //int disasterId = UnityEngine.Random.Range(0, disasters.Length);
 
             //var position = RandomCircle(transform.position, radiusForSpawns);
-            Instantiate(disasters[disasterId], transform.position, Quaternion.identity);
+            Instantiate(disasters[DisasterCount], transform.position, Quaternion.identity);
 
             DisasterCount++;
         }

@@ -1,6 +1,4 @@
 ﻿using God;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Points : MonoBehaviour
@@ -13,6 +11,9 @@ public class Points : MonoBehaviour
     [SerializeField] private int disastersMax = 3;
 
     public bool IsFinished { private set; get; } = false;
+
+    [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject resultUI;
 
     private void Awake()
     {
@@ -34,10 +35,19 @@ public class Points : MonoBehaviour
         if (disasterSpawner == null)
             disasterSpawner = FindObjectOfType<DisasterSpawner>();
 
-        if ( disasterSpawner.DisasterCount >= disastersMax )
+        Invoke("ShowResults", 2f);
+    }
+
+    private void ShowResults()
+    {
+        if (disasterSpawner.DisasterCount >= disastersMax)
         {
             IsFinished = true;
-            Debug.Log("Finished!!!");
+
+            gameUI.SetActive(false);
+            resultUI.SetActive(true);
+
+            resultUI.GetComponent<Results>().UpdateGrade(points);
         }
     }
 }

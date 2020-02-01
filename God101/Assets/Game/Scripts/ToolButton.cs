@@ -46,6 +46,7 @@ namespace God
             }
             else
             {
+                disaster.ShowFail();
                 Points.Instance.AddPoints(-5);
             }
         }
