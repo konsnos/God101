@@ -42,7 +42,7 @@ namespace God
         {
             if (disasterType == DisasterType.Earthquake)
             {
-                FindObjectOfType<Planet>().StopIt();
+                FindObjectOfType<Planet>()?.StopIt();
             }
 
             UpdateText(textOnSolution);

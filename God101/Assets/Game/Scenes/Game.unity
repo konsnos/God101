@@ -1562,7 +1562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDuration: 2
-  maxDuration: 10
+  maxDuration: 5
   disasters:
   - {fileID: 6476402013724540800, guid: 2369bed0aab4af0448e0d7d60074d40b, type: 3}
   - {fileID: 8924990847466066952, guid: 2eb13feae275cec4bb61cb12adf6bf2b, type: 3}
@@ -2197,7 +2197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1527910054
 RectTransform:
   m_ObjectHideFlags: 0
